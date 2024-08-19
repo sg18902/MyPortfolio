@@ -158,66 +158,72 @@ const Education = () => {
                                 }}
                             >
                                 <CardContent>
-                                    <Box sx={{
-                                        display: 'flex',
-                                        flexDirection: 'column',
-                                        alignItems: { xs: 'flex-start', md: 'center' },
-                                        mb: 1,
-                                    }}>
-                                        <Typography
-                                            variant="h6"
-                                            sx={{
-                                                fontWeight: 'bold',
-                                                display: 'flex',
-                                                alignItems: 'center', // Vertically aligns icon and text
-                                            }}
-                                        >
-                                            <Box
-                                                sx={{
-                                                    mr: 1, // Adds space between icon and text
-                                                    display: 'flex',
-                                                    alignItems: 'center', // Vertically aligns the icon
-                                                }}
-                                            >
-                                                {item.icon}
-                                            </Box>
-                                            {item.link ? (
-                                                <Link
-                                                    href={item.link}
-                                                    target="_blank"
-                                                    rel="noopener noreferrer"
-                                                    sx={{
-                                                        color: theme.palette.mode === 'dark' ? 'lightblue' : 'blue',
-                                                        textDecoration: 'underline',
-                                                        '&:hover': {
-                                                            textDecoration: 'underline', // Ensures underline on hover
-                                                        },
-                                                    }}
-                                                >
-                                                    {item.title}
-                                                </Link>
-                                            ) : (
-                                                item.title
-                                            )}
-                                        </Typography>
+                                <Box
+    sx={{
+        display: 'flex',
+        flexDirection: { xs: 'row', md: 'row' }, // Keep the direction consistent for both mobile and PC
+        alignItems: 'center', // Vertically aligns icon and text
+        textAlign: { xs: 'left', md: 'left' }, // Align text left on mobile and PC
+        mb: 1,
+    }}
+>
+    <Typography
+        variant="h6"
+        sx={{
+            fontWeight: 'bold',
+            display: 'flex',
+            alignItems: 'center', // Vertically aligns icon and text
+        }}
+    >
+        <Box
+            sx={{
+                mr: 1, // Space between icon and text on mobile
+                display: 'flex',
+                alignItems: 'center', // Vertically aligns the icon
+            }}
+        >
+            {item.icon}
+        </Box>
+        {item.link ? (
+            <Link
+                href={item.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                sx={{
+                    color: theme.palette.mode === 'dark' ? 'lightblue' : 'blue',
+                    textDecoration: 'underline',
+                    '&:hover': {
+                        textDecoration: 'underline', // Ensures underline on hover
+                    },
+                }}
+            >
+                {item.title}
+            </Link>
+        ) : (
+            item.title
+        )}
+    </Typography>
 
-                                        {item.title === "B.E in Computer Engineering with Honors in AIML" && (
-                                            <IconButton
-                                                color="inherit"
-                                                onClick={handleCollegeTableOpen}
-                                                sx={{
-                                                    transition: 'all 0.3s ease',
-                                                    borderRadius: '8px',
-                                                    '&:hover': {
-                                                        backgroundColor: 'primary.light',
-                                                        boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.2)',
-                                                    },
-                                                }}
-                                            >
-                                                <img src={OpenIcon} alt="GitHub" style={{ width: 25, height: 25 }} />
-                                            </IconButton>
-                                        )}
-                                    </Box>
+    {item.title === "B.E in Computer Engineering with Honors in AIML" && (
+        <IconButton
+            color="inherit"
+            onClick={handleCollegeTableOpen}
+            sx={{
+                transition: 'all 0.3s ease',
+                borderRadius: '8px',
+                '&:hover': {
+                    backgroundColor: 'primary.light',
+                    boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.2)',
+                },
+                ml: { xs: 0, md: 2 }, // Adds space to the left of the button on PC
+            }}
+        >
+            <img src={OpenIcon} alt="GitHub" style={{ width: 25, height: 25 }} />
+        </IconButton>
+    )}
+</Box>
+
+
                                     <Typography variant="body1" sx={{ mb: 1 }}>
                                         {item.institution}
                                     </Typography>
