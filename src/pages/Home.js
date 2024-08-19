@@ -1,13 +1,25 @@
 import React from "react";
-import { Typography, Container, Box, Grid, Avatar, Paper, useTheme, Chip } from "@mui/material";
+import { Typography, Container, Box, Grid, Avatar, Paper, useTheme } from "@mui/material";
 import profileImage from "../assets/profile (5).jpg";
 import Typewriter from "typewriter-effect";
 import SkillsSection from "../components/SkillsSection";
 import AchievementsSection from "../components/AchievementsSection";
+import resume from "../assets/resume.pdf"; // Path to your resume file
+import DownloadFile from "../assets/download_file.png"; // Path to your download icon
 
 const Home = () => {
     const theme = useTheme();
     const isDarkMode = theme.palette.mode === 'dark';
+
+    const handleDownload = () => {
+        // Trigger download by creating a link and clicking it programmatically
+        const link = document.createElement('a');
+        link.href = resume;
+        link.download = 'Shivam_Goswami_Resume.pdf';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    };
 
     return (
         <Container sx={{ mt: 5 }}>
@@ -22,11 +34,37 @@ const Home = () => {
                         : "linear-gradient(135deg, #f5f7fa, #c3cfe2)",
                     boxShadow: "0 8px 16px rgba(0, 0, 0, 0.2)",
                     transition: "transform 0.3s",
+                    position: 'relative', // Make the Paper position relative
                     "&:hover": {
                         transform: "scale(1.02)",
                     },
                 }}
             >
+                <Box
+                    sx={{
+                        position: 'absolute',
+                        top: '16px',
+                        right: '16px',
+                        zIndex: 1,
+                        '& img': {
+                            width: '40px',
+                            height: '40px',
+                            cursor: 'pointer',
+                            borderRadius: 2,
+                            transition: 'transform 0.3s, box-shadow 0.3s',
+                            '&:hover': {
+                                transform: 'scale(1.1)',
+                                boxShadow: '0px 4px 8px rgba(0,0,0,0.2)',
+                            },
+                        },
+                    }}
+                >
+                    <img
+                        src={DownloadFile}
+                        alt='Download Resume'
+                        onClick={handleDownload}
+                    />
+                </Box>
                 <Grid container alignItems="center" spacing={4}>
                     <Grid item xs={12} md={6}>
                         <Box>
@@ -88,7 +126,7 @@ const Home = () => {
             </Paper>
 
             {/* New Section: Technical Skills */}
-            <SkillsSection isDarkMode={isDarkMode}/>
+            <SkillsSection isDarkMode={isDarkMode} />
 
             <AchievementsSection isDarkMode={isDarkMode} />
         </Container>

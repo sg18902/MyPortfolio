@@ -27,6 +27,8 @@ import ContactMailIcon from '@mui/icons-material/ContactMail';
 import TerminalIcon from '@mui/icons-material/Terminal';
 import { useNavigate } from "react-router-dom";
 import ContactMe from "./ContactMe";
+import resume from "../assets/resume.pdf"; // Path to your resume file
+
 
 // Update the logo image path
 import programmerLogo from '../assets/programmer.png';
@@ -70,6 +72,16 @@ const Header = ({ toggleTheme, themeMode }) => {
     const navigate = useNavigate();
     const headerRef = useRef(null);
     const [contactMeOpen, setContactMeOpen] = useState(false);
+
+    const handleDownload = () => {
+        // Trigger download by creating a link and clicking it programmatically
+        const link = document.createElement('a');
+        link.href = resume;
+        link.download = 'Shivam_Goswami_Resume.pdf';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    };
 
     useEffect(() => {
         let prevScrollPos = window.scrollY;
@@ -381,6 +393,15 @@ const Header = ({ toggleTheme, themeMode }) => {
                             </ListItem>
                         ))}
                     </List>
+                    <Button
+                    variant="contained"
+                    color="primary"
+                    fullWidth
+                    onClick={handleDownload}
+                    sx={{ mt: 2, borderRadius: '25px'}}
+                >
+                    Download Resume
+                </Button>
                 </Box>
             </Popover>
 
