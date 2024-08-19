@@ -66,6 +66,8 @@ export default function SkillsSection({ isDarkMode }) {
                     value={selectedTab}
                     onChange={handleChange}
                     textColor={isDarkMode ? '#f5f7fa' : '#333'}
+                    variant="scrollable" // Enable scrolling
+                        scrollButtons="auto" // Show scroll buttons when necessary
                     sx={{
                         borderRight: {
                             xs: 'none',

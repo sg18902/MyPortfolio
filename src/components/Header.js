@@ -105,9 +105,11 @@ const Header = ({ toggleTheme, themeMode }) => {
         }
     };
 
-    const handleNavigation = (path) => () => {
+    const handleNavigation = (path) => (event) => {
         navigate(path);
+        handleMenuClose();
     };
+    
 
     const handlePopoverOpen = (event) => {
         setPopoverAnchorEl(event.currentTarget);
@@ -126,6 +128,7 @@ const Header = ({ toggleTheme, themeMode }) => {
     };
 
     const handleContactMeOpen = () => {
+        handleMenuClose();
         setContactMeOpen(true);
     }
 

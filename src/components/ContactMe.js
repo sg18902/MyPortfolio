@@ -198,6 +198,10 @@ const ContactMe = ({ open, handleClose }) => {
                   flexDirection: 'column',
                   justifyContent: 'center',
                   alignItems: 'start',
+                  [theme.breakpoints.down('sm')]: {
+                    padding: 2,
+                    fontSize: '0.875rem', // Reduce font size on small screens
+                  },
                 }}
               >
                 <Box display="flex" alignItems="center" mb={4}>
