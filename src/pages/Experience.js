@@ -85,20 +85,23 @@ const Experience = () => {
                     key={index}
                     sx={{
                         display: 'flex',
-                        alignItems: 'center',
+                        flexDirection: { xs: 'column', md: 'row' },
+                        alignItems: { xs: 'flex-start', md: 'center' },
                         mb: 4,
-                        mt: 4, // Changed marginTop to 4 for consistency
+                        mt: { xs: 2, md: 4 },
                         position: 'relative',
                     }}
                 >
                     {/* Year Box */}
-                    <Box
-                        sx={{
-                            width: '40px',
-                            textAlign: 'center',
-                            flexShrink: 0,
-                        }}
-                    >
+                    <Box sx={{
+                        width: { xs: '100%', md: '45px' },
+                        textAlign: 'center',
+                        mb: { xs: 2, md: 0 },
+                        flexShrink: 0,
+                        whiteSpace: { xs: 'nowrap', md: 'normal' }, // Single line for mobile, normal for PC
+                        overflow: 'hidden',
+                        textOverflow: { xs: 'ellipsis', md: 'clip' }, // Add ellipsis if text overflows on mobile
+                    }}>
                         <Typography variant="h6" sx={{ fontWeight: 'bold' }}>
                             {item.year}
                         </Typography>
