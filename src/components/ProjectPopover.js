@@ -9,7 +9,6 @@ import {
     Box,
     Card,
     CardContent,
-    Paper,
     useTheme,
     Button,
 } from "@mui/material";

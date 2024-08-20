@@ -7,11 +7,10 @@ import Projects from "./pages/Projects";
 import Certifications from "./pages/Certifications";
 import Experience from "./pages/Experience";
 import Education from "./pages/Education";
-import ContactMe from "./components/ContactMe";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 function App() {
-  const [mode, setMode] = useState('light'); // Default theme mode
+  const [mode, setMode] = useState('dark'); // Default theme mode
 
   const toggleTheme = () => {
     setMode((prevMode) => (prevMode === 'light' ? 'dark' : 'light'));

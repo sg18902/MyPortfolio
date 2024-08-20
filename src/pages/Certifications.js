@@ -23,31 +23,32 @@ const Certifications = () => {
     const open = Boolean(anchorEl);
 
     const gradientBackground = theme.palette.mode === 'dark'
-    ? 'linear-gradient( #333333, #1c1c1c )'
-    : 'linear-gradient(135deg, #b2ebf2 30%, #00bcd4 100%)';
+        ? 'linear-gradient( #333333, #1c1c1c )'
+        : 'linear-gradient(135deg, #b2ebf2 30%, #00bcd4 100%)';
 
 
     return (
         <Container>
-            <Box sx = {{marginTop: '50px', marginBottom: '40px'}}>
-                <Box sx = {{ background: theme.palette.mode === 'dark'
-    ? 'linear-gradient(135deg, #333333, #1c1c1c 100%)'
-    : 'linear-gradient(135deg, #b2ebf2 30%, #00bcd4 100%)',
-    borderRadius: '8px',
-}}>
-            <Typography
-                sx={{
-                    textAlign: 'center',
-                    fontSize: '20px',
-                    padding: '16px',
-                    boxShadow: 3,
-                    backgroundColor: gradientBackground,
+            <Box sx={{ marginTop: '50px', marginBottom: '40px' }}>
+                <Box sx={{
+                    background: theme.palette.mode === 'dark'
+                        ? 'linear-gradient(135deg, #333333, #1c1c1c 100%)'
+                        : 'linear-gradient(135deg, #b2ebf2 30%, #00bcd4 100%)',
                     borderRadius: '8px',
-                }}
-            >
-                Certifications
-            </Typography>
-            </Box>
+                }}>
+                    <Typography
+                        sx={{
+                            textAlign: 'center',
+                            fontSize: '20px',
+                            padding: '16px',
+                            boxShadow: 3,
+                            backgroundColor: gradientBackground,
+                            borderRadius: '8px',
+                        }}
+                    >
+                        Certifications
+                    </Typography>
+                </Box>
             </Box>
             {coursesData.map((item, index) => (
                 <Card

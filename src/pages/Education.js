@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import {
-    Typography, Box, Container, Card, CardContent, Divider, useTheme, Link, IconButton, Avatar, useMediaQuery,
+    Typography, Box, Container, Card, CardContent, Divider, useTheme, Link, IconButton, useMediaQuery,
 } from "@mui/material";
-import InfoIcon from '@mui/icons-material/Info';
 import OpenIcon from '../assets/file.png'
 import CollegeTable from "../components/CollegeTable";
 import KvIcon from "../assets/kv.png"
 import XavierIcon from "../assets/xavier.png";
+import SchoolTable from '../components/SchoolTable';
 
 const educationData = [
     {
@@ -21,7 +21,7 @@ const educationData = [
         year: "Apr 2017 – May 2018",
         icon: <img src={KvIcon} alt="KV" style={{ width: 40, height: 40 }} />,
         title: "Secondary School Certificate",
-        link: 'https://drive.google.com/file/d/1APoYsENAYC5_wyem8ne24x4EKot3hvs0/view?usp=sharing',
+        link: '',
         institution: "Kendriya Vidayalaya No. 2, Colaba, Mumbai, Maharastra",
         details: ["Percentage: 92.6%", "Position of Responsiblity: House vice-captain"],
     },
@@ -29,7 +29,7 @@ const educationData = [
         year: "Apr 2019 – May 2020",
         title: "High School Certificate",
         icon: <img src={KvIcon} alt="KV" style={{ width: 40, height: 40 }} />,
-        link: 'https://drive.google.com/file/d/1AQTOB90bAL16pYhxtM2HlAsR5aEIZn1N/view?usp=sharing',
+        link: '',
         institution: "Kendriya Vidayalaya No. 2, Colaba, Mumbai, Maharastra",
         details: ["Percentage: 94%", "Position of Responsiblity: House captain"],
     },
@@ -38,7 +38,9 @@ const educationData = [
 const Education = () => {
     const theme = useTheme(); // Access the current theme
     const [collegeTableOpen, setCollegeTableOpen] = useState(false);
+    const [schoolTableOpen, setSchoolTableOpen] = useState(false);
     const isMobile = useMediaQuery(theme.breakpoints.down('sm')); // Detect mobile view
+    const [selecteditem, setSelectedItem] = useState({})
 
     const gradientBackground = theme.palette.mode === 'dark'
         ? 'linear-gradient(135deg, #333333, #1c1c1c 100%)'
@@ -52,13 +54,22 @@ const Education = () => {
         setCollegeTableOpen(false);
     };
 
+    const handleSchoolOpen = (item) => {
+        setSelectedItem(item)
+        setSchoolTableOpen(true);
+    };
+
+    const handleSchoolClose = () => {
+        setSelectedItem({})
+        setSchoolTableOpen(false);
+    };
+
     return (
         <Container sx={{ marginTop: '50px' }}>
             <Box sx={{
                 background: gradientBackground,
                 borderRadius: '8px',
                 mb: 4,
-                p: 2,
             }}>
                 <Typography
                     sx={{
@@ -74,7 +85,7 @@ const Education = () => {
             </Box>
             <Box sx={{ position: 'relative', pl: { xs: 2, md: 5 } }}>
                 {/* Vertical Line */}
-                <Box
+                {!isMobile && (<Box
                     sx={{
                         position: 'absolute',
                         left: { xs: '10px', md: '24px' }, // Adjust based on screen size
@@ -84,7 +95,8 @@ const Education = () => {
                         backgroundColor: theme.palette.primary.main,
                         zIndex: -1,
                     }}
-                />
+                />)}
+                
 
                 {/* Education Items */}
                 {educationData.map((item, index) => (
@@ -126,7 +138,7 @@ const Education = () => {
                                 height: '15px',
                                 backgroundColor: theme.palette.primary.main,
                                 borderRadius: '50%',
-                                zIndex: 1,
+                                zIndex: {xs : 0, md : 1},
                             }}
                         />
 
@@ -143,7 +155,7 @@ const Education = () => {
                         />
 
                         {/* Card for Education Details */}
-                        <Box sx={{ flexGrow: 1 }}>
+                        <Box sx={{ flexGrow: 1, position: 'relative' }}> {/* Added position: 'relative' here */}
                             <Card
                                 sx={{
                                     boxShadow: 3,
@@ -157,13 +169,32 @@ const Education = () => {
                                     padding: 2,
                                 }}
                             >
-                                <CardContent>
+                                <CardContent sx={{ position: 'relative' }}>
+                                    {/* IconButton positioned at the top right corner */}
+                                    <IconButton
+                                        color="inherit"
+                                        onClick={item.title === "B.E in Computer Engineering with Honors in AIML" ? handleCollegeTableOpen : () => handleSchoolOpen(item)}
+                                        sx={{
+                                            position: 'absolute',
+                                            top: 15, // Distance from the top
+                                            right: { xs: 0, md: 8 }, // Distance from the right on different screen sizes
+                                            transition: 'all 0.3s ease',
+                                            borderRadius: '8px',
+                                            '&:hover': {
+                                                backgroundColor: 'primary.light',
+                                                boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.2)',
+                                            },
+                                        }}
+                                    >
+                                        <img src={OpenIcon} alt="Open" style={{ width: 25, height: 25 }} />
+                                    </IconButton>
+
                                     <Box
                                         sx={{
                                             display: 'flex',
-                                            flexDirection: { xs: 'row', md: 'row' }, // Keep the direction consistent for both mobile and PC
-                                            alignItems: 'center', // Vertically aligns icon and text
-                                            textAlign: { xs: 'left', md: 'left' }, // Align text left on mobile and PC
+                                            flexDirection: { xs: 'row', md: 'row' },
+                                            alignItems: 'center',
+                                            textAlign: { xs: 'left', md: 'left' },
                                             mb: 1,
                                         }}
                                     >
@@ -172,14 +203,14 @@ const Education = () => {
                                             sx={{
                                                 fontWeight: 'bold',
                                                 display: 'flex',
-                                                alignItems: 'center', // Vertically aligns icon and text
+                                                alignItems: 'center',
                                             }}
                                         >
                                             <Box
                                                 sx={{
-                                                    mr: 1, // Space between icon and text on mobile
+                                                    mr: 1,
                                                     display: 'flex',
-                                                    alignItems: 'center', // Vertically aligns the icon
+                                                    alignItems: 'center',
                                                 }}
                                             >
                                                 {item.icon}
@@ -193,7 +224,7 @@ const Education = () => {
                                                         color: theme.palette.mode === 'dark' ? 'lightblue' : 'blue',
                                                         textDecoration: 'underline',
                                                         '&:hover': {
-                                                            textDecoration: 'underline', // Ensures underline on hover
+                                                            textDecoration: 'underline',
                                                         },
                                                     }}
                                                 >
@@ -203,26 +234,7 @@ const Education = () => {
                                                 item.title
                                             )}
                                         </Typography>
-
-                                        {item.title === "B.E in Computer Engineering with Honors in AIML" && (
-                                            <IconButton
-                                                color="inherit"
-                                                onClick={handleCollegeTableOpen}
-                                                sx={{
-                                                    transition: 'all 0.3s ease',
-                                                    borderRadius: '8px',
-                                                    '&:hover': {
-                                                        backgroundColor: 'primary.light',
-                                                        boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.2)',
-                                                    },
-                                                    ml: { xs: 0, md: 2 }, // Adds space to the left of the button on PC
-                                                }}
-                                            >
-                                                <img src={OpenIcon} alt="GitHub" style={{ width: 25, height: 25 }} />
-                                            </IconButton>
-                                        )}
                                     </Box>
-
 
                                     <Typography variant="body1" sx={{ mb: 1 }}>
                                         {item.institution}
@@ -237,12 +249,19 @@ const Education = () => {
                                 </CardContent>
                             </Card>
                         </Box>
+
                     </Box>
                 ))}
             </Box>
             <CollegeTable
                 open={collegeTableOpen}
                 handleClose={handleCollegeTableClose}
+            />
+
+            <SchoolTable
+                open={schoolTableOpen}
+                handleClose={handleSchoolClose}
+                item={selecteditem}
             />
         </Container>
     );

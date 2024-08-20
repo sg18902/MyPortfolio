@@ -1,6 +1,6 @@
 // src/pages/Experience.js
 import React from "react";
-import { Typography, Container, Box, Card, useTheme, Divider, CardContent, Link } from "@mui/material";
+import { Typography, Container, Box, Card, useTheme, Divider, CardContent, Link, useMediaQuery } from "@mui/material";
 import CmpIcon from "../assets/cmpinfotect.png";
 import SciativeIcon from "../assets/sciative.png";
 
@@ -43,31 +43,35 @@ const Experience = () => {
     const theme = useTheme(); // Access the current theme
 
     const gradientBackground = theme.palette.mode === 'dark'
-    ? 'linear-gradient(135deg, #333333, #1c1c1c 100%)'
-    : 'linear-gradient(135deg, #b2ebf2 30%, #00bcd4 100%)';
+        ? 'linear-gradient(135deg, #333333, #1c1c1c 100%)'
+        : 'linear-gradient(135deg, #b2ebf2 30%, #00bcd4 100%)';
+
+    const isMobile = useMediaQuery(theme.breakpoints.down('sm')); // Detect mobile view
+
 
     return (
         <Container sx={{ marginTop: '50px' }}>
-            <Box sx = {{background: theme.palette.mode === 'dark'
-    ? 'linear-gradient(135deg, #333333, #1c1c1c 100%)'
-    : 'linear-gradient(135deg, #b2ebf2 30%, #00bcd4 100%)',
-    borderRadius: '8px',
-}}>
-            <Typography
-                sx={{
-                    textAlign: 'center',
-                    fontSize: '20px',
-                    padding: '16px',
-                    boxShadow: 3,
-                    borderRadius: '8px',
-                }}
-            >
-                Work Experience
-            </Typography>
+            <Box sx={{
+                background: theme.palette.mode === 'dark'
+                    ? 'linear-gradient(135deg, #333333, #1c1c1c 100%)'
+                    : 'linear-gradient(135deg, #b2ebf2 30%, #00bcd4 100%)',
+                borderRadius: '8px',
+            }}>
+                <Typography
+                    sx={{
+                        textAlign: 'center',
+                        fontSize: '20px',
+                        padding: '16px',
+                        boxShadow: 3,
+                        borderRadius: '8px',
+                    }}
+                >
+                    Work Experience
+                </Typography>
             </Box>
-            <Box sx={{ position: 'relative', pl: 5 }}>
+            <Box sx={{ position: 'relative' }}>
                 {/* Vertical Line */}
-                <Box
+                {!isMobile && (<Box
                     sx={{
                         position: 'absolute',
                         left: '24px', // Adjusted to center the circles
@@ -77,130 +81,133 @@ const Experience = () => {
                         backgroundColor: theme.palette.primary.main,
                         zIndex: -1,
                     }}
-                />
+                />)}
+
 
                 {/* Education Items */}
                 {experienceData.map((item, index) => (
                     <Box
-                    key={index}
-                    sx={{
-                        display: 'flex',
-                        flexDirection: { xs: 'column', md: 'row' },
-                        alignItems: { xs: 'flex-start', md: 'center' },
-                        mb: 4,
-                        mt: { xs: 2, md: 4 },
-                        position: 'relative',
-                    }}
-                >
-                    {/* Year Box */}
-                    <Box sx={{
-                        width: { xs: '100%', md: '45px' },
-                        textAlign: 'center',
-                        mb: { xs: 2, md: 0 },
-                        flexShrink: 0,
-                        whiteSpace: { xs: 'nowrap', md: 'normal' }, // Single line for mobile, normal for PC
-                        overflow: 'hidden',
-                        textOverflow: { xs: 'ellipsis', md: 'clip' }, // Add ellipsis if text overflows on mobile
-                    }}>
-                        <Typography variant="h6" sx={{ fontWeight: 'bold' }}>
-                            {item.year}
-                        </Typography>
-                    </Box>
-        
-                    {/* Circle */}
-                    <Box
+                        key={index}
                         sx={{
-                            position: 'absolute',
-                            left: '-22px', // Adjust to position the circle on the line
-                            top: '50%',
-                            transform: 'translateY(-50%)',
-                            width: '15px',
-                            height: '15px',
-                            backgroundColor: theme.palette.primary.main,
-                            borderRadius: '50%',
-                            zIndex: 1,
+                            display: 'flex',
+                            flexDirection: { xs: 'column', md: 'row' },
+                            alignItems: { xs: 'flex-start', md: 'center' },
+                            mb: 4,
+                            mt: { xs: 2, md: 4 },
+                            position: 'relative',
                         }}
-                    />
-        
-                    {/* Divider Between Year and Card */}
-                    <Divider
-                        orientation="vertical"
-                        sx={{
-                            height: '100%',
-                            width: '2px',
-                            backgroundColor: theme.palette.primary.main,
-                            mx: 2,
-                        }}
-                    />
-        
-                    {/* Card for Education Details */}
-                    <Box sx={{ flexGrow: 1 }}>
-                        <Card
+                    >
+                        {/* Year Box */}
+                        <Box sx={{
+                            width: { xs: '100%', md: '45px' },
+                            textAlign: 'center',
+                            mb: { xs: 2, md: 0 },
+                            flexShrink: 0,
+                            whiteSpace: { xs: 'nowrap', md: 'normal' }, // Single line for mobile, normal for PC
+                            overflow: 'hidden',
+                            textOverflow: { xs: 'ellipsis', md: 'clip' }, // Add ellipsis if text overflows on mobile
+                        }}>
+                            <Typography variant="h6" sx={{ fontWeight: 'bold' }}>
+                                {item.year}
+                            </Typography>
+                        </Box>
+
+                        {/* Circle */}
+                        {!isMobile && (<Box
                             sx={{
-                                boxShadow: 3,
-                                transition: 'transform 0.3s ease, box-shadow 0.3s ease',
-                                background: gradientBackground,
-                                borderRadius: theme.shape.borderRadius,
-                                padding: 2,
-                                '&:hover': {
-                                    transform: 'translateY(-10px)',
-                                    boxShadow: theme.shadows[10],
-                                },
+                                position: 'absolute',
+                                left: '-22px', // Adjust to position the circle on the line
+                                top: '50%',
+                                transform: 'translateY(-50%)',
+                                width: '15px',
+                                height: '15px',
+                                backgroundColor: theme.palette.primary.main,
+                                borderRadius: '50%',
+                                zIndex: 1,
                             }}
-                        >
-                            <CardContent>
-                                <Typography
-                                    variant="h6"
-                                    sx={{
-                                        fontWeight: 'bold',
-                                        mb: 1,
-                                        display: 'flex',
-                                        alignItems: 'center', // Vertically aligns icon and text
-                                    }}
-                                >
-                                    <Box
+                        />)}
+
+
+
+                        {/* Divider Between Year and Card */}
+                        <Divider
+                            orientation="vertical"
+                            sx={{
+                                height: '100%',
+                                width: '2px',
+                                backgroundColor: theme.palette.primary.main,
+                                mx: 2,
+                            }}
+                        />
+
+                        {/* Card for Education Details */}
+                        <Box sx={{ flexGrow: 1 }}>
+                            <Card
+                                sx={{
+                                    boxShadow: 3,
+                                    transition: 'transform 0.3s ease, box-shadow 0.3s ease',
+                                    background: gradientBackground,
+                                    borderRadius: theme.shape.borderRadius,
+                                    padding: {xs : 1, md : 2},
+                                    '&:hover': {
+                                        transform: 'translateY(-10px)',
+                                        boxShadow: theme.shadows[10],
+                                    },
+                                }}
+                            >
+                                <CardContent>
+                                    <Typography
+                                        variant="h6"
                                         sx={{
-                                            mr: 1, // Adds margin to the right of the icon
+                                            fontWeight: 'bold',
+                                            mb: 1,
                                             display: 'flex',
-                                            alignItems: 'center', // Vertically aligns the icon
+                                            alignItems: 'center', // Vertically aligns icon and text
                                         }}
                                     >
-                                        {item.icon}
-                                    </Box>
-                                    {item.link ? (
-                                        <Link
-                                            href={item.link}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
+                                        <Box
                                             sx={{
-                                                color: theme.palette.mode === 'dark' ? 'lightblue' : 'blue',
-                                                textDecoration: 'underline',
-                                                '&:hover': {
-                                                    textDecoration: 'underline', // Ensures underline on hover
-                                                },
+                                                mr: 1, // Adds margin to the right of the icon
+                                                display: 'flex',
+                                                alignItems: 'center', // Vertically aligns the icon
                                             }}
                                         >
-                                            {item.institution}
-                                        </Link>
-                                    ) : (
-                                        item.institution
-                                    )}
-                                </Typography>
-        
-                                <Typography variant="body1" sx={{ mb: 1 }}>
-                                    {item.title}
-                                </Typography>
-                                <Box component="ul" sx={{ pl: 2, mb: 0 }}>
-                                    {item.details.map((detail, index) => (
-                                        <Box component="li" key={index} sx={{ mb: 1 }}>
-                                            <Typography variant="body2">{detail}</Typography>
+                                            {item.icon}
                                         </Box>
-                                    ))}
-                                </Box>
-                            </CardContent>
-                        </Card>
+                                        {item.link ? (
+                                            <Link
+                                                href={item.link}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                sx={{
+                                                    color: theme.palette.mode === 'dark' ? 'lightblue' : 'blue',
+                                                    textDecoration: 'underline',
+                                                    '&:hover': {
+                                                        textDecoration: 'underline', // Ensures underline on hover
+                                                    },
+                                                }}
+                                            >
+                                                {item.institution}
+                                            </Link>
+                                        ) : (
+                                            item.institution
+                                        )}
+                                    </Typography>
+
+                                    <Typography variant="body1" sx={{ mb: 1 }}>
+                                        {item.title}
+                                    </Typography>
+                                    <Box component="ul" sx={{ pl: 2, mb: 0 }}>
+                                        {item.details.map((detail, index) => (
+                                            <Box component="li" key={index} sx={{ mb: 1 }}>
+                                                <Typography variant="body2">{detail}</Typography>
+                                            </Box>
+                                        ))}
+                                    </Box>
+                                </CardContent>
+                            </Card>
+                        </Box>
                     </Box>
-                </Box>
                 ))}
             </Box>
         </Container>

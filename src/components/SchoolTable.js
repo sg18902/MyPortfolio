@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
     Dialog,
     DialogActions,
@@ -20,19 +20,49 @@ import {
 } from "@mui/material";
 import CloseIcon from '@mui/icons-material/Close';
 
-const CollegeTable = ({ open, handleClose }) => {
+const SchoolTable = ({ open, handleClose, item }) => {
     const theme = useTheme(); // Access the current theme
+    const [course, setCourse] = useState('');
+    const [data, setData] = useState([]);
 
-    const data = [
-        { semester: "sem 1", year: "Dec 2020", cgpa: 10 },
-        { semester: "sem 2", year: "May 2021", cgpa: 9.6 },
-        { semester: "sem 3", year: "Dec 2021", cgpa: 9.78 },
-        { semester: "sem 4", year: "May 2022", cgpa: 9.25 },
-        { semester: "sem 5", year: "Nov 2022", cgpa: 9.61 },
-        { semester: "sem 6", year: "May 2023", cgpa: 9.35 },
-        { semester: "sem 7", year: "Dec 2024", cgpa: 9.32 },
-        { semester: "sem 8", year: "May 2024", cgpa: 9.71 },
-    ];
+    useEffect(() => {
+        function updateCourseTitle(item) {
+            setCourse(item?.title || '');
+        }
+        updateCourseTitle(item);
+    }, [item]);
+
+    useEffect(() => {
+        const newData = 
+            course === "Secondary School Certificate" ? [
+                { Subject: "English", marks_achieved: 93, total_marks: 100, grade: 'A1' },
+                { Subject: "Hindi", marks_achieved: 96, total_marks: 100, grade: 'A1' },
+                { Subject: "Mathematics", marks_achieved: 96, total_marks: 100, grade: 'A1' },
+                { Subject: "Science", marks_achieved: 83, total_marks: 100, grade: 'A2' },
+                { Subject: "Social Science", marks_achieved: 95, total_marks: 100, grade: 'A1' }
+            ] 
+            : course === "High School Certificate" ? [
+                { Subject: "English", marks_achieved: 89, total_marks: 100, grade: 'A2' },
+                { Subject: "Mathematics", marks_achieved: 95, total_marks: 100, grade: 'A1' },
+                { Subject: "Physics", marks_achieved: 95, total_marks: 100, grade: 'A1' },
+                { Subject: "Chemistry", marks_achieved: 95, total_marks: 100, grade: 'A1' },
+                { Subject: "Computer Science", marks_achieved: 96, total_marks: 100, grade: 'A1' }
+            ] 
+            : [];
+    
+        setData(newData);
+    }, [course]);
+    
+
+    const overall_percentage = (() => {
+        if (item?.title === "Secondary School Certificate") {
+            return '92.6%';
+        } else if (item?.title === "High School Certificate") {
+            return '94%';
+        } else {
+            return '';
+        }
+    })();
 
     return (
         <Dialog
@@ -59,7 +89,7 @@ const CollegeTable = ({ open, handleClose }) => {
                     position: 'relative',
                 }}
             >
-                College Details
+                School Details
                 <IconButton
                     edge="end"
                     color="inherit"
@@ -79,34 +109,34 @@ const CollegeTable = ({ open, handleClose }) => {
                         <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
                             <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
                                 <Typography variant="body1" sx={{ fontWeight: 'bold', width: '170px' }}>
-                                    College Name:
+                                    School Name:
                                 </Typography>
                                 <Typography variant="body1" sx={{ flex: 1 }}>
-                                    Xavier Institute of Engineering
+                                    Kendriya Vidayalaya No. 2, Colaba
                                 </Typography>
                             </Box>
                             <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
                                 <Typography variant="body1" sx={{ fontWeight: 'bold', width: '170px' }}>
-                                    Branch:
+                                    Course:
                                 </Typography>
                                 <Typography variant="body1" sx={{ flex: 1 }}>
-                                    Computer Engineering with Honors in AIML
+                                    {item?.title}
                                 </Typography>
                             </Box>
                             <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
                                 <Typography variant="body1" sx={{ fontWeight: 'bold', width: '170px' }}>
-                                Academic Period:
+                                    Academic Term:
                                 </Typography>
                                 <Typography variant="body1" sx={{ flex: 1 }}>
-                                    2020 - 2024
+                                    {item.year}
                                 </Typography>
                             </Box>
                             <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
                                 <Typography variant="body1" sx={{ fontWeight: 'bold', width: '170px' }}>
-                                    Overall CGPA:
+                                    Percentage:
                                 </Typography>
                                 <Typography variant="body1" sx={{ flex: 1 }}>
-                                    9.56
+                                    {overall_percentage}
                                 </Typography>
                             </Box>
                         </Box>
@@ -117,17 +147,19 @@ const CollegeTable = ({ open, handleClose }) => {
                     <Table>
                         <TableHead>
                             <TableRow >
-                                <TableCell align="center" sx = {{background: theme.palette.mode === 'dark' ? '#161414' : theme.palette.primary.main, fontSize: '17px', fontWeight: 'bold'}}>Semester</TableCell>
-                                <TableCell align="center" sx = {{background:  theme.palette.mode === 'dark' ? '#161414' : theme.palette.primary.main, fontSize: '17px', fontWeight: 'bold'}}>Academic Date</TableCell>
-                                <TableCell align="center" sx = {{background:  theme.palette.mode === 'dark' ? '#161414' : theme.palette.primary.main, fontSize: '17px', fontWeight: 'bold'}}>CGPA</TableCell>
+                                <TableCell align="center" sx={{ background: theme.palette.mode === 'dark' ? '#161414' : theme.palette.primary.main, fontSize: '17px', fontWeight: 'bold' }}>Subject</TableCell>
+                                <TableCell align="center" sx={{ background: theme.palette.mode === 'dark' ? '#161414' : theme.palette.primary.main, fontSize: '17px', fontWeight: 'bold' }}>Marks Achieved</TableCell>
+                                <TableCell align="center" sx={{ background: theme.palette.mode === 'dark' ? '#161414' : theme.palette.primary.main, fontSize: '17px', fontWeight: 'bold' }}>Total Marks</TableCell>
+                                <TableCell align="center" sx={{ background: theme.palette.mode === 'dark' ? '#161414' : theme.palette.primary.main, fontSize: '17px', fontWeight: 'bold' }}>Grade</TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
                             {data.map((row, index) => (
                                 <TableRow key={index}>
-                                    <TableCell align="center">{row.semester}</TableCell>
-                                    <TableCell align="center">{row.year}</TableCell>
-                                    <TableCell align="center">{row.cgpa}</TableCell>
+                                    <TableCell align="center">{row.Subject}</TableCell>
+                                    <TableCell align="center">{row.marks_achieved}</TableCell>
+                                    <TableCell align="center">{row.total_marks}</TableCell>
+                                    <TableCell align="center">{row.grade}</TableCell>
                                 </TableRow>
                             ))}
                         </TableBody>
@@ -148,4 +180,4 @@ const CollegeTable = ({ open, handleClose }) => {
     );
 };
 
-export default CollegeTable;
+export default SchoolTable;

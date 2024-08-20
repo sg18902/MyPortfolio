@@ -83,7 +83,7 @@ const Projects = () => {
                 alignItems: 'center',
                 width: '100%',
                 backgroundColor: theme.palette.background.default,
-                padding: `${theme.spacing(4)} ${theme.spacing(4)} 0 ${theme.spacing(4)} `,
+                padding: isMobile ? `${theme.spacing(2)} ${theme.spacing(2)} 0 ${theme.spacing(2)} ` : `${theme.spacing(4)} ${theme.spacing(4)} 0 ${theme.spacing(4)} `,
             }}
         >
             {!isMobile && (
@@ -268,8 +268,7 @@ const Projects = () => {
                                     key={index}
                                     sx={{
                                         mb: 2,
-                                        mx: 2,
-                                        p: 3,
+                                        p: 2,
                                         borderRadius: theme.shape.borderRadius,
                                         boxShadow: theme.shadows[5],
                                         transition: 'transform 0.5s ease-in-out',
@@ -392,8 +391,8 @@ const Projects = () => {
                                                 height: 200,
                                                 objectFit: 'cover',
                                                 borderRadius: `${theme.shape.borderRadius} px ${theme.shape.borderRadius} px 0 0`,
-                                    }}
-                                />
+                                            }}
+                                        />
                                         <CardContent>
                                             <Typography
                                                 variant="h6"
@@ -459,10 +458,10 @@ const Projects = () => {
                                 ))}
                             </Box>
                         )
-                }
+                    }
                 </>
 
-                
+
             )}
             {selectedProject && (
                 <ProjectPopover
