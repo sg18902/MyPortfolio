@@ -69,7 +69,7 @@ const Experience = () => {
                     Work Experience
                 </Typography>
             </Box>
-            <Box sx={{ position: 'relative' }}>
+            <Box sx={{ position: 'relative', pl : {xs : 0, md : 5} }}>
                 {/* Vertical Line */}
                 {!isMobile && (<Box
                     sx={{
