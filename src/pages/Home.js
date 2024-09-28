@@ -6,6 +6,7 @@ import SkillsSection from "../components/SkillsSection";
 import AchievementsSection from "../components/AchievementsSection";
 import resume from "../assets/resume.pdf"; // Path to your resume file
 import DownloadFile from "../assets/download_file.png"; // Path to your download icon
+import BadgesSection from "../components/BadgesSection";
 
 const Home = () => {
     const theme = useTheme();
@@ -128,7 +129,10 @@ const Home = () => {
             {/* New Section: Technical Skills */}
             <SkillsSection isDarkMode={isDarkMode} />
 
+            <BadgesSection isDarkMode={isDarkMode} />
+
             <AchievementsSection isDarkMode={isDarkMode} />
+
         </Container>
     );
 };

@@ -36,7 +36,8 @@ import LeetcodeLogo from '../assets/leetcode.png'
 import InstagramIcon from "../assets/Instagram.webp";
 import LinkedInIcon from "../assets/linkedin.webp"
 import GithubIcon from "../assets/github.png";
-import PinteredtIcon from "../assets/pinterest.webp"
+import PinteredtIcon from "../assets/pinterest.webp";
+import CredlyIcon from "../assets/credly.svg"
 
 const socials = [
     {
@@ -63,6 +64,11 @@ const socials = [
         icon: <img src={LeetcodeLogo} alt="LeetCode" style={{ width: 25, height: 25, marginLeft: 8 }} />,
         url: "https://leetcode.com/u/goswami_shivam/",
         name: "LeetCode",
+    },
+    {
+        icon: <img src={CredlyIcon} alt="Credly" style={{ width: 25, height: 25, marginLeft: 8 }} />,
+        url: "https://www.credly.com/users/shivam-goswami.bd52bbd7",
+        name: "Credly",
     }
 ];
 
